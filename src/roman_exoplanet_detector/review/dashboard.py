@@ -33,15 +33,29 @@ def calculate_theoretical_signal(t_arr, q, t_planet, width):
 
 @st.cache_resource
 def get_firestore_client():
-    cred_path = "config/serviceAccountKey.json"
     if not firebase_admin._apps:
         try:
-            cred = credentials.Certificate(cred_path)
+            # Check if running on the live Streamlit Cloud server with secrets injected
+            if hasattr(st, "secrets") and "firebase" in st.secrets:
+                # Convert the encrypted Streamlit secrets mapping securely into a standard dict buffer
+                firebase_secrets = dict(st.secrets["firebase"])
+                
+                # Double-check that inner keys like private_key aren't empty strings
+                if firebase_secrets.get("private_key"):
+                    cred = credentials.Certificate(firebase_secrets)
+                else:
+                    raise KeyError("Firebase private_key missing or unparsed inside the secrets vault.")
+            else:
+                # Fall back to your absolute local file path when running via run_pipeline.bat locally
+                cred_path = "config/serviceAccountKey.json"
+                cred = credentials.Certificate(cred_path)
+                
             firebase_admin.initialize_app(cred)
         except Exception as e:
             st.error(f"Failed to load cloud configuration: {e}")
             return None
     return firestore.client()
+
 
 db = get_firestore_client()
 
@@ -95,7 +109,7 @@ else:
                 login_submit = st.form_submit_button("Authenticate Token")
                 
                 if login_submit:
-                    ## base_endpoint = "https://googleapis.com"
+                     
                     base_endpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword"
                     url = f"{base_endpoint}?key={FIREBASE_WEB_API_KEY.strip()}"
                     
