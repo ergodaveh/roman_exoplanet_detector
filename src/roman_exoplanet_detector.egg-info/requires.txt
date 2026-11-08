@@ -1,0 +1,17 @@
+numpy
+pandas
+scipy
+matplotlib
+astropy
+photutils
+asdf
+scikit-learn
+joblib
+streamlit
+
+[dev]
+pytest
+pytest-cov
+black
+ruff
+mypy
