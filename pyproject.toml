@@ -24,6 +24,8 @@ dependencies = [
     "scikit-learn",
     "joblib",
     "streamlit",
+    "firebase-admin",  # <-- ADD THIS DEPENDENCY SPECIFICATION HERE
+    "openpyxl",        # Ensure openpyxl is present for the cloud Excel stream too
 ]
 
 [project.optional-dependencies]
