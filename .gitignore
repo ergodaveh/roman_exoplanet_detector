@@ -1,17 +1,28 @@
 # Block sensitive Firebase service account credentials
-**/config/serviceAccountKey.json
-*.json.local
 
-# Block local Python virtual environments
+# Firebase
+**/config/serviceAccountKey.json
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Environment files
+.env
+.env.*
+
+# Python
 .venv/
 __pycache__/
 *.pyc
 
-# Block raw data file stacks and local testing models cache
+# Local JSON overrides
+*.json.local
+
+# Roman detector assets
 **/data/raw/*.asdf
 **/models/classifier.joblib
 **/output/exports/
 
-# Block python packaging metadata build artifacts
+# Packaging
 *.egg-info/
 

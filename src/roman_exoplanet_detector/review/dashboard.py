@@ -15,10 +15,9 @@ import requests
 from datetime import datetime, timezone
 
 # -------------------------------------------------------------
-# SECURE FIREBASE CONFIGURATION WINDOW
-# -------------------------------------------------------------
-# Paste your newly generated app registration apiKey string right here:
-FIREBASE_WEB_API_KEY = "AIzaSyD_P7ekSqeDjJyCBij2CxsgM_lOV-Nu8Vc"
+# SECURED FIREBASE CONFIGURATION WINDOW
+# ------------------------------------------------------------- 
+FIREBASE_WEB_API_KEY = st.secrets["firebase_web_api_key"]
 # -------------------------------------------------------------
 
 st.set_page_config(
